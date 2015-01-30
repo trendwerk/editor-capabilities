@@ -2,6 +2,13 @@
 /**
  * Plugin Name: Editor capabilities
  * Description: Sets up the editor role a bit different.
+ *
+ * Plugin URI: https://github.com/trendwerk/editor-capabilities
+ * 
+ * Author: Trendwerk
+ * Author URI: https://github.com/trendwerk
+ * 
+ * Version: 1.0.0
  */
 
 class TP_Editor_Capabilities {
