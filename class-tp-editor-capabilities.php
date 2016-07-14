@@ -4,11 +4,11 @@
  * Description: Sets up the editor role a bit different.
  *
  * Plugin URI: https://github.com/trendwerk/editor-capabilities
- * 
+ *
  * Author: Trendwerk
  * Author URI: https://github.com/trendwerk
- * 
- * Version: 1.0.0
+ *
+ * Version: 1.0.1
  */
 
 class TP_Editor_Capabilities {
@@ -16,13 +16,13 @@ class TP_Editor_Capabilities {
 		add_action( 'init', array( $this, 'set_capabilities' ) );
 		add_filter( 'map_meta_cap', array( $this, 'limit_lower_roles' ), 10, 4);
 	}
-	
+
 	/**
 	 * Set some of the editors capabilities
 	 */
 	function set_capabilities() {
 		$editor = get_role( 'editor' );
-		
+
 		$editor->add_cap( 'list_users' );
 		$editor->add_cap( 'remove_users' );
 		$editor->add_cap( 'add_users' );
@@ -30,11 +30,11 @@ class TP_Editor_Capabilities {
 		$editor->add_cap( 'create_users' );
 		$editor->add_cap( 'delete_users' );
 		$editor->add_cap( 'edit_users' );
-		
+
 		$editor->add_cap( 'edit_theme_options' );
 		$editor->remove_cap( 'switch_themes' );
 	}
-	
+
   	/**
   	 * Refrain non-admins from editing / promoting / deleting administrators
   	 */
@@ -44,9 +44,9 @@ class TP_Editor_Capabilities {
 			if( ! isset( $args[0] ) )
 				$caps[] = 'do_not_allow';
 
-			if( $args[0] == $user_id ) 
+			if( $args[0] == $user_id )
 				$caps[] = 'do_not_allow';
-			
+
 			$other = new WP_User( absint( $args[0] ) );
 			if( $other->has_cap('administrator') && ! current_user_can( 'administrator' ) )
 				$caps[] = 'do_not_allow';
@@ -56,19 +56,19 @@ class TP_Editor_Capabilities {
 				return $caps;
 
 			$other_id = absint( $_GET['user'] );
-			
+
 			if( ! $other_id )
 				return $caps;
 
 			if( $other_id == $user_id )
 				return $caps;
-			
+
 			$other = new WP_User( $other_id );
 			if( $other->has_cap( 'administrator' ) && ! current_user_can( 'administrator' ) )
 				$caps[] = 'do_not_allow';
 
 		}
-		
+
 		return $caps;
 	}
 } new TP_Editor_Capabilities;
